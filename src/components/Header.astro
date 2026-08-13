@@ -1,11 +1,13 @@
 ---
 import OrnamentalRule from './OrnamentalRule.astro';
 
+const base = import.meta.env.BASE_URL;
+
 const navLinks = [
-  { label: 'Gallery',      href: '/gallery' },
-  { label: 'Our Story',    href: '/about' },
-  { label: 'Events',       href: '/events' },
-  { label: 'Visit Us',     href: '/visit' },
+  { label: 'Gallery',      href: `${base}gallery` },
+  { label: 'Our Story',    href: `${base}about` },
+  { label: 'Events',       href: `${base}events` },
+  { label: 'Visit Us',     href: `${base}visit` },
 ];
 
 const currentPath = Astro.url.pathname;
