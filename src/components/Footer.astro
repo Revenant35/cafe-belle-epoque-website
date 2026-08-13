@@ -1,6 +1,7 @@
 ---
 import FacebookButton from './FacebookButton.astro';
 import InstagramButton from './InstagramButton.astro';
+import OrnamentalRule from './OrnamentalRule.astro';
 
 const currentYear = new Date().getFullYear();
 ---
@@ -8,11 +9,7 @@ const currentYear = new Date().getFullYear();
 <footer class="site-footer">
 
   <!-- Ornamental rule (mirrors header) -->
-  <div class="footer-rule" aria-hidden="true">
-    <span class="footer-rule__line"></span>
-    <span class="footer-rule__diamond"></span>
-    <span class="footer-rule__line"></span>
-  </div>
+  <OrnamentalRule maxWidth="1200px" margin="0 auto var(--space-lg)" />
 
   <div class="footer-inner">
 
@@ -61,30 +58,6 @@ const currentYear = new Date().getFullYear();
     background-color: var(--color-bg);
     padding: 0 var(--space-xl) var(--space-lg);
     margin-top: var(--space-2xl);
-  }
-
-  /* ── Ornamental Rule (mirrors header) ─────────────────── */
-
-  .footer-rule {
-    display: flex;
-    align-items: center;
-    gap: var(--space-sm);
-    max-width: 1200px;
-    margin: 0 auto var(--space-lg);
-  }
-
-  .footer-rule__line {
-    flex: 1;
-    height: 1px;
-    background-color: var(--color-border);
-  }
-
-  .footer-rule__diamond {
-    width: 6px;
-    height: 6px;
-    background-color: var(--color-gold);
-    transform: rotate(45deg);
-    flex-shrink: 0;
   }
 
   /* ── Footer Inner ─────────────────────────────────────── */

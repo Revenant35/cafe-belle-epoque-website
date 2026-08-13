@@ -1,0 +1,71 @@
+---
+interface Props {
+  /**
+   * Text label to display in the center instead of a diamond.
+   * When omitted, a gold diamond is rendered.
+   */
+  label?: string;
+
+  /**
+   * Constrains the rule to a fixed max-width. Useful for narrow
+   * page-header rules (e.g. "320px"). Full-width by default.
+   */
+  maxWidth?: string;
+
+  /**
+   * Shorthand margin applied to the wrapper element.
+   * Defaults to "0".
+   */
+  margin?: string;
+}
+
+const { label, maxWidth, margin = '0' } = Astro.props;
+---
+
+<div
+  class:list={['ornamental-rule', { 'ornamental-rule--labeled': !!label }]}
+  aria-hidden="true"
+  style={[maxWidth && `max-width: ${maxWidth}`, `margin: ${margin}`].filter(Boolean).join('; ')}
+>
+  <span class="ornamental-rule__line"></span>
+  {label
+    ? <span class="ornamental-rule__label">{label}</span>
+    : <span class="ornamental-rule__diamond"></span>
+  }
+  <span class="ornamental-rule__line"></span>
+</div>
+
+<style>
+  .ornamental-rule {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+  }
+
+  .ornamental-rule--labeled {
+    gap: var(--space-md);
+  }
+
+  .ornamental-rule__line {
+    flex: 1;
+    height: 1px;
+    background-color: var(--color-border);
+  }
+
+  .ornamental-rule__diamond {
+    width: 6px;
+    height: 6px;
+    background-color: var(--color-gold);
+    transform: rotate(45deg);
+    flex-shrink: 0;
+  }
+
+  .ornamental-rule__label {
+    font-family: var(--font-label);
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+    white-space: nowrap;
+  }
+</style>

@@ -1,5 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import OrnamentalRule from '../components/OrnamentalRule.astro';
 import { getCollection, render } from 'astro:content';
 
 const allEvents = await getCollection('events');
@@ -25,11 +26,7 @@ const fmt = (date: Date) =>
     <header class="page-header">
       <p class="page-label">The Belle Epoque Cafe</p>
       <h1 class="page-title">Events</h1>
-      <div class="page-rule" aria-hidden="true">
-        <span class="page-rule__line"></span>
-        <span class="page-rule__diamond"></span>
-        <span class="page-rule__line"></span>
-      </div>
+      <OrnamentalRule maxWidth="320px" margin="0 auto" />
     </header>
 
     {upcoming.length > 0 ? (
@@ -71,11 +68,7 @@ const fmt = (date: Date) =>
 
     {past.length > 0 && (
       <section class="events-section events-section--past">
-        <div class="past-heading-rule" aria-hidden="true">
-          <span class="past-heading-rule__line"></span>
-          <span class="past-heading-rule__label">Past Events</span>
-          <span class="past-heading-rule__line"></span>
-        </div>
+        <OrnamentalRule label="Past Events" margin="0 0 var(--space-lg)" />
         <ul class="events-list events-list--past">
           {past.map(async event => {
             const { Content } = await render(event);
@@ -137,28 +130,6 @@ const fmt = (date: Date) =>
     font: var(--text-h1);
     color: var(--color-purple);
     margin-bottom: var(--space-md);
-  }
-
-  .page-rule {
-    display: flex;
-    align-items: center;
-    gap: var(--space-sm);
-    max-width: 320px;
-    margin: 0 auto;
-  }
-
-  .page-rule__line {
-    flex: 1;
-    height: 1px;
-    background-color: var(--color-border);
-  }
-
-  .page-rule__diamond {
-    width: 6px;
-    height: 6px;
-    background-color: var(--color-gold);
-    transform: rotate(45deg);
-    flex-shrink: 0;
   }
 
   /* ── Events List ──────────────────────────────────────── */
@@ -256,28 +227,6 @@ const fmt = (date: Date) =>
 
   .events-section--past {
     margin-top: var(--space-xl);
-  }
-
-  .past-heading-rule {
-    display: flex;
-    align-items: center;
-    gap: var(--space-md);
-    margin-bottom: var(--space-lg);
-  }
-
-  .past-heading-rule__line {
-    flex: 1;
-    height: 1px;
-    background-color: var(--color-border);
-  }
-
-  .past-heading-rule__label {
-    font-family: var(--font-label);
-    font-size: 0.65rem;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--color-text-muted);
-    white-space: nowrap;
   }
 
   /* ── Empty State ──────────────────────────────────────── */

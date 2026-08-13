@@ -1,4 +1,6 @@
 ---
+import OrnamentalRule from './OrnamentalRule.astro';
+
 const navLinks = [
   { label: 'Menu',         href: '/menu' },
   { label: 'Our Story',    href: '/about' },
@@ -50,11 +52,7 @@ const currentPath = Astro.url.pathname;
   </div>
 
   <!-- Ornamental rule -->
-  <div class="header-rule" aria-hidden="true">
-    <span class="header-rule__line"></span>
-    <span class="header-rule__diamond"></span>
-    <span class="header-rule__line"></span>
-  </div>
+  <OrnamentalRule maxWidth="1200px" margin="var(--space-md) auto 0" />
 </header>
 
 <style>
@@ -136,30 +134,6 @@ const currentPath = Astro.url.pathname;
   .nav-link:hover::after,
   .nav-link--active::after {
     transform: scaleX(1);
-  }
-
-  /* ── Ornamental Rule ──────────────────────────────────── */
-
-  .header-rule {
-    display: flex;
-    align-items: center;
-    gap: var(--space-sm);
-    max-width: 1200px;
-    margin: var(--space-md) auto 0;
-  }
-
-  .header-rule__line {
-    flex: 1;
-    height: 1px;
-    background-color: var(--color-border);
-  }
-
-  .header-rule__diamond {
-    width: 6px;
-    height: 6px;
-    background-color: var(--color-gold);
-    transform: rotate(45deg);
-    flex-shrink: 0;
   }
 
   /* ── Mobile ───────────────────────────────────────────── */
