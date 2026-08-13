@@ -1,0 +1,278 @@
+---
+import Layout from '../layouts/Layout.astro';
+import OrnamentalRule from '../components/OrnamentalRule.astro';
+import FacebookButton from '../components/FacebookButton.astro';
+import InstagramButton from '../components/InstagramButton.astro';
+---
+
+<Layout
+  title="Visit Us — Cafe Belle Epoque"
+  description="Find The Belle Epoque Cafe at 1141 Frederick Ave in downtown St. Joseph, MO. Open daily 9AM–2PM."
+>
+  <section class="visit-page">
+
+    <!-- Page header -->
+    <header class="visit-header">
+      <p class="visit-eyebrow label">Downtown St. Joseph</p>
+      <h1>Visit Us</h1>
+      <p class="visit-intro">
+        We're open every day for breakfast and brunch. Come as you are,
+        stay as long as you like.
+      </p>
+      <OrnamentalRule maxWidth="480px" margin="var(--space-lg) auto 0" />
+    </header>
+
+    <!-- Info + map grid -->
+    <div class="visit-grid">
+
+      <!-- Left column: details -->
+      <div class="visit-details">
+
+        <div class="visit-block">
+          <h2 class="visit-block__heading">
+            <span class="visit-block__diamond" aria-hidden="true"></span>
+            Hours
+          </h2>
+          <dl class="visit-hours">
+            <div class="visit-hours__row">
+              <dt>Daily</dt>
+              <dd>9AM &ndash; 2PM</dd>
+            </div>
+          </dl>
+        </div>
+
+        <OrnamentalRule margin="var(--space-lg) 0" />
+
+        <div class="visit-block">
+          <h2 class="visit-block__heading">
+            <span class="visit-block__diamond" aria-hidden="true"></span>
+            Location
+          </h2>
+          <address class="visit-address">
+            <a
+              href="https://maps.google.com/?q=1141+Frederick+Ave,+Saint+Joseph,+MO+64501"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="visit-address__map-link"
+            >
+              1141 Frederick Ave<br />
+              Saint Joseph, MO 64501
+            </a>
+          </address>
+        </div>
+
+        <OrnamentalRule margin="var(--space-lg) 0" />
+
+        <div class="visit-block">
+          <h2 class="visit-block__heading">
+            <span class="visit-block__diamond" aria-hidden="true"></span>
+            Contact
+          </h2>
+          <a href="tel:+18163011418" class="visit-phone">(816) 301-1418</a>
+        </div>
+
+        <OrnamentalRule margin="var(--space-lg) 0" />
+
+        <div class="visit-block">
+          <h2 class="visit-block__heading">
+            <span class="visit-block__diamond" aria-hidden="true"></span>
+            Follow Along
+          </h2>
+          <div class="visit-social">
+            <FacebookButton />
+            <InstagramButton />
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Right column: map embed -->
+      <div class="visit-map">
+        <iframe
+          title="The Belle Epoque Cafe on Google Maps"
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3101.2!2d-94.8467!3d39.7675!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x87938f5a3f3f3f3f%3A0x0!2s1141+Frederick+Ave%2C+Saint+Joseph%2C+MO+64501!5e0!3m2!1sen!2sus!4v1"
+          width="600"
+          height="450"
+          style="border:0;"
+          allowfullscreen
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+        ></iframe>
+      </div>
+
+    </div>
+
+  </section>
+</Layout>
+
+<style>
+  /* ── Page layout ─────────────────────────────────────────── */
+
+  .visit-page {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: var(--space-xl) var(--space-lg) var(--space-2xl);
+  }
+
+  /* ── Header ──────────────────────────────────────────────── */
+
+  .visit-header {
+    text-align: center;
+    margin-bottom: var(--space-xl);
+  }
+
+  .visit-eyebrow {
+    color: var(--color-gold);
+    margin-bottom: var(--space-sm);
+    display: block;
+  }
+
+  .visit-header h1 {
+    color: var(--color-purple);
+    margin-bottom: var(--space-md);
+  }
+
+  .visit-intro {
+    font: var(--text-body);
+    color: var(--color-text-muted);
+    max-width: 48ch;
+    margin: 0 auto;
+  }
+
+  /* ── Info + map grid ─────────────────────────────────────── */
+
+  .visit-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.4fr;
+    gap: var(--space-xl);
+    align-items: start;
+  }
+
+  /* ── Detail blocks ───────────────────────────────────────── */
+
+  .visit-block__heading {
+    font-family: var(--font-label);
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--color-gold);
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-md);
+  }
+
+  .visit-block__diamond {
+    display: inline-block;
+    width: 5px;
+    height: 5px;
+    background-color: var(--color-gold);
+    transform: rotate(45deg);
+    flex-shrink: 0;
+  }
+
+  /* ── Hours ───────────────────────────────────────────────── */
+
+  .visit-hours {
+    font: var(--text-body);
+    color: var(--color-text);
+  }
+
+  .visit-hours__row {
+    display: flex;
+    gap: var(--space-lg);
+    align-items: baseline;
+  }
+
+  .visit-hours__row dt {
+    font-family: var(--font-label);
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+    min-width: 4rem;
+  }
+
+  .visit-hours__row dd {
+    color: var(--color-text);
+    font: var(--text-body);
+  }
+
+  /* ── Address ─────────────────────────────────────────────── */
+
+  .visit-address {
+    font-style: normal;
+  }
+
+  .visit-address__map-link {
+    font: var(--text-body);
+    color: var(--color-text);
+    line-height: 1.8;
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: color 0.2s ease, border-color 0.2s ease;
+  }
+
+  .visit-address__map-link:hover {
+    color: var(--color-purple);
+    border-bottom-color: var(--color-gold);
+  }
+
+  /* ── Phone ───────────────────────────────────────────────── */
+
+  .visit-phone {
+    font: var(--text-body);
+    color: var(--color-text);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: color 0.2s ease, border-color 0.2s ease;
+  }
+
+  .visit-phone:hover {
+    color: var(--color-purple);
+    border-bottom-color: var(--color-gold);
+  }
+
+  /* ── Social ──────────────────────────────────────────────── */
+
+  .visit-social {
+    display: flex;
+    gap: var(--space-md);
+    flex-wrap: wrap;
+  }
+
+  /* ── Map ─────────────────────────────────────────────────── */
+
+  .visit-map {
+    position: sticky;
+    top: var(--space-lg);
+    border: 1px solid var(--color-border);
+    overflow: hidden;
+    background: var(--color-surface);
+    aspect-ratio: 4 / 3;
+  }
+
+  .visit-map iframe {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  /* ── Mobile ───────────────────────────────────────────────── */
+
+  @media (max-width: 760px) {
+    .visit-page {
+      padding: var(--space-lg) var(--space-md) var(--space-xl);
+    }
+
+    .visit-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .visit-map {
+      position: static;
+      aspect-ratio: 4 / 3;
+      order: -1;
+    }
+  }
+</style>

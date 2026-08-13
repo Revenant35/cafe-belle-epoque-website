@@ -1,0 +1,456 @@
+---
+import Layout from '../layouts/Layout.astro';
+import OrnamentalRule from '../components/OrnamentalRule.astro';
+
+/**
+ * Gallery images — add entries here as you add photos to public/gallery/.
+ * Each entry: { src, alt }
+ *   src  — path relative to /public (e.g. '/gallery/eggs-benedict.webp')
+ *   alt  — descriptive caption shown in the lightbox and used as aria-label
+ */
+const images: { src: string; alt: string }[] = [
+  { src: '/gallery/image_1.jpg',  alt: 'The Belle Epoque Cafe sign hanging above the downtown St. Joseph storefront' },
+  { src: '/gallery/image_2.jpg',  alt: 'A chilled glass of white wine held up by the front window of the cafe' },
+  { src: '/gallery/image_3.jpg',  alt: 'Seared fish over a black bean and corn succotash with a glass of white wine' },
+  { src: '/gallery/image_4.jpg',  alt: 'Chocolate torte with whipped cream and fresh raspberries alongside a glass of red wine' },
+  { src: '/gallery/image_5.jpg',  alt: 'Roasted Brussels sprouts with dipping sauce and a salmon rillettes plate with toast' },
+  { src: '/gallery/image_6.jpg',  alt: 'A spread of sliced steak, shrimp salad, garden salad, and a glass of red wine in afternoon light' },
+  { src: '/gallery/image_7.jpg',  alt: 'Seared shrimp and peas pasta in a black bowl with a Moscow mule cocktail' },
+  { src: '/gallery/image_8.jpg',  alt: 'Beer cheese soup with crispy bacon in a crock served with a brioche roll and a pint of beer' },
+  { src: '/gallery/image_9.jpg',  alt: 'Roasted Brussels sprouts and salmon rillettes with toast points, seen from above' },
+  { src: '/gallery/image_10.jpg', alt: 'An assortment of hand-crafted chocolate truffles on a tray at the cafe counter' },
+  { src: '/gallery/image_11.jpg', alt: 'Grilled pork tenderloin with roasted carrots and asparagus, with a berry reduction and a cocktail' },
+  { src: '/gallery/image_12.jpg', alt: 'Sliced flat iron steak with herb butter, broccoli, and a shrimp salad bowl with red wine' },
+  { src: '/gallery/image_13.jpg', alt: 'Two bowls of pasta: shrimp and peas, and penne with mushrooms and peas, topped with Parmesan' },
+  { src: '/gallery/image_14.jpg', alt: 'An Aperol spritz and a berry lemonade cocktail on the bar' },
+];
+---
+
+<Layout
+  title="Gallery — Cafe Belle Epoque"
+  description="A glimpse inside The Belle Epoque Cafe — our food, our space, and the moments we share."
+>
+  <section class="gallery-page">
+
+    <!-- Page header -->
+    <header class="gallery-header">
+      <p class="gallery-eyebrow label">The Belle Epoque Cafe</p>
+      <h1>Gallery</h1>
+      <p class="gallery-intro">
+        A glimpse inside our kitchen and dining room — dishes crafted with care,
+        mornings made unhurried, and a space that invites you to linger.
+      </p>
+      <OrnamentalRule maxWidth="480px" margin="var(--space-lg) auto 0" />
+    </header>
+
+    <div class="gallery-grid" role="list" aria-label="Photo gallery">
+      {images.map((image, index) => (
+        <button
+          class="gallery-item"
+          role="listitem"
+          aria-label={`View photo: ${image.alt}`}
+          data-index={index}
+          data-src={image.src}
+          data-alt={image.alt}
+        >
+          <img
+            src={image.src}
+            alt={image.alt}
+            loading="lazy"
+            decoding="async"
+            class="gallery-item__img"
+          />
+          <div class="gallery-item__overlay" aria-hidden="true">
+            <span class="gallery-item__expand-icon">&#43;</span>
+          </div>
+        </button>
+      ))}
+    </div>
+
+  </section>
+
+  <!-- Lightbox overlay -->
+  <div
+    id="lightbox"
+    class="lightbox"
+    role="dialog"
+    aria-modal="true"
+    aria-label="Image lightbox"
+    aria-hidden="true"
+  >
+    <div class="lightbox__backdrop"></div>
+
+    <div class="lightbox__content">
+      <button class="lightbox__close" aria-label="Close lightbox">&times;</button>
+
+      <button class="lightbox__prev" aria-label="Previous image">&#8249;</button>
+
+      <figure class="lightbox__figure">
+        <img id="lightbox-img" src="" alt="" class="lightbox__img" />
+        <figcaption id="lightbox-caption" class="lightbox__caption"></figcaption>
+      </figure>
+
+      <button class="lightbox__next" aria-label="Next image">&#8250;</button>
+    </div>
+  </div>
+</Layout>
+
+<style>
+  /* ── Page layout ─────────────────────────────────────────── */
+
+  .gallery-page {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: var(--space-xl) var(--space-lg) var(--space-2xl);
+  }
+
+  /* ── Header ──────────────────────────────────────────────── */
+
+  .gallery-header {
+    text-align: center;
+    margin-bottom: var(--space-xl);
+  }
+
+  .gallery-eyebrow {
+    color: var(--color-gold);
+    margin-bottom: var(--space-sm);
+    display: block;
+  }
+
+  .gallery-header h1 {
+    color: var(--color-purple);
+    margin-bottom: var(--space-md);
+  }
+
+  .gallery-intro {
+    font: var(--text-body);
+    color: var(--color-text-muted);
+    max-width: 52ch;
+    margin: 0 auto;
+  }
+
+  /* ── Masonry grid ────────────────────────────────────────── */
+
+  .gallery-grid {
+    column-count: 3;
+    column-gap: var(--space-md);
+    margin-top: var(--space-xl);
+  }
+
+  @media (max-width: 900px) {
+    .gallery-grid { column-count: 2; }
+  }
+
+  @media (max-width: 540px) {
+    .gallery-grid { column-count: 1; }
+  }
+
+  /* ── Gallery item ────────────────────────────────────────── */
+
+  .gallery-item {
+    display: block;
+    width: 100%;
+    break-inside: avoid;
+    margin-bottom: var(--space-md);
+    padding: 0;
+    border: 1px solid var(--color-border);
+    background: var(--color-surface);
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    /* Reset button styles */
+    -webkit-appearance: none;
+    appearance: none;
+    text-align: left;
+    transition: border-color 0.25s ease, box-shadow 0.25s ease;
+  }
+
+  .gallery-item:hover,
+  .gallery-item:focus-visible {
+    border-color: var(--color-gold);
+    outline: none;
+  }
+
+  .gallery-item__img {
+    display: block;
+    width: 100%;
+    height: auto;
+    transition: transform 0.4s ease, filter 0.4s ease;
+  }
+
+  .gallery-item:hover .gallery-item__img,
+  .gallery-item:focus-visible .gallery-item__img {
+    transform: scale(1.03);
+    filter: brightness(0.88);
+  }
+
+  /* Expand icon overlay */
+  .gallery-item__overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+  }
+
+  .gallery-item:hover .gallery-item__overlay,
+  .gallery-item:focus-visible .gallery-item__overlay {
+    opacity: 1;
+  }
+
+  .gallery-item__expand-icon {
+    font-family: var(--font-body);
+    font-size: 2rem;
+    font-weight: 300;
+    color: var(--color-gold-light);
+    line-height: 1;
+    border: 1px solid var(--color-gold);
+    width: 2.5rem;
+    height: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(28, 18, 9, 0.45);
+  }
+
+  /* ── Lightbox ─────────────────────────────────────────────── */
+
+  .lightbox {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .lightbox.is-open {
+    pointer-events: all;
+    opacity: 1;
+  }
+
+  .lightbox__backdrop {
+    position: absolute;
+    inset: 0;
+    background-color: rgba(46, 18, 69, 0.92); /* --color-purple-dark at 92% */
+    cursor: pointer;
+  }
+
+  .lightbox__content {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    max-width: min(90vw, 1100px);
+    width: 100%;
+    padding: 0 var(--space-sm);
+  }
+
+  .lightbox__figure {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-sm);
+  }
+
+  .lightbox__img {
+    display: block;
+    max-width: 100%;
+    max-height: 82vh;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    border: 1px solid var(--color-gold);
+    background: var(--color-surface);
+  }
+
+  .lightbox__caption {
+    font: var(--text-caption);
+    color: var(--color-border);
+    text-align: center;
+  }
+
+  /* Navigation buttons */
+  .lightbox__prev,
+  .lightbox__next,
+  .lightbox__close {
+    -webkit-appearance: none;
+    appearance: none;
+    background: transparent;
+    border: 1px solid var(--color-gold);
+    color: var(--color-gold-light);
+    cursor: pointer;
+    line-height: 1;
+    transition: background-color 0.2s ease, color 0.2s ease;
+    flex-shrink: 0;
+  }
+
+  .lightbox__prev,
+  .lightbox__next {
+    font-family: var(--font-body);
+    font-size: 2rem;
+    font-weight: 300;
+    width: 2.75rem;
+    height: 2.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .lightbox__prev:hover,
+  .lightbox__next:hover,
+  .lightbox__prev:focus-visible,
+  .lightbox__next:focus-visible {
+    background-color: var(--color-gold);
+    color: var(--color-purple-dark);
+    outline: none;
+  }
+
+  .lightbox__close {
+    position: absolute;
+    top: calc(-1 * var(--space-xl));
+    right: var(--space-sm);
+    font-size: 1.5rem;
+    width: 2.25rem;
+    height: 2.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .lightbox__close:hover,
+  .lightbox__close:focus-visible {
+    background-color: var(--color-gold);
+    color: var(--color-purple-dark);
+    outline: none;
+  }
+
+  /* Hide prev/next when only one image */
+  .lightbox.single-image .lightbox__prev,
+  .lightbox.single-image .lightbox__next {
+    visibility: hidden;
+  }
+
+  /* ── Mobile ───────────────────────────────────────────────── */
+
+  @media (max-width: 680px) {
+    .gallery-page {
+      padding: var(--space-lg) var(--space-md) var(--space-xl);
+    }
+
+    .lightbox__prev,
+    .lightbox__next {
+      width: 2.25rem;
+      height: 2.25rem;
+      font-size: 1.5rem;
+    }
+
+    .lightbox__close {
+      top: calc(-1 * var(--space-lg));
+    }
+  }
+</style>
+
+<script>
+  // ── Lightbox controller ──────────────────────────────────────
+
+  interface GalleryImage {
+    src: string;
+    alt: string;
+  }
+
+  // Collect image data from DOM
+  const items = Array.from(
+    document.querySelectorAll<HTMLButtonElement>('.gallery-item')
+  );
+
+  const galleryImages: GalleryImage[] = items.map(el => ({
+    src: el.dataset.src ?? '',
+    alt: el.dataset.alt ?? '',
+  }));
+
+  const lightbox      = document.getElementById('lightbox') as HTMLDivElement;
+  const lightboxImg   = document.getElementById('lightbox-img') as HTMLImageElement;
+  const lightboxCap   = document.getElementById('lightbox-caption') as HTMLElement;
+  const btnClose      = lightbox?.querySelector<HTMLButtonElement>('.lightbox__close');
+  const btnPrev       = lightbox?.querySelector<HTMLButtonElement>('.lightbox__prev');
+  const btnNext       = lightbox?.querySelector<HTMLButtonElement>('.lightbox__next');
+  const backdrop      = lightbox?.querySelector<HTMLDivElement>('.lightbox__backdrop');
+
+  let currentIndex = 0;
+
+  function showImage(index: number) {
+    const img = galleryImages[index];
+    if (!img || !lightboxImg || !lightboxCap) return;
+    lightboxImg.src = img.src;
+    lightboxImg.alt = img.alt;
+    lightboxCap.textContent = img.alt;
+    currentIndex = index;
+  }
+
+  function openLightbox(index: number) {
+    if (!lightbox) return;
+    showImage(index);
+    lightbox.classList.add('is-open');
+    lightbox.setAttribute('aria-hidden', 'false');
+    if (galleryImages.length <= 1) {
+      lightbox.classList.add('single-image');
+    }
+    btnClose?.focus();
+    // Prevent body scroll
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeLightbox() {
+    if (!lightbox) return;
+    lightbox.classList.remove('is-open');
+    lightbox.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+    // Return focus to the triggering item
+    items[currentIndex]?.focus();
+  }
+
+  function prev() {
+    const idx = (currentIndex - 1 + galleryImages.length) % galleryImages.length;
+    showImage(idx);
+  }
+
+  function next() {
+    const idx = (currentIndex + 1) % galleryImages.length;
+    showImage(idx);
+  }
+
+  // Attach click handlers to each gallery item
+  items.forEach((item, index) => {
+    item.addEventListener('click', () => openLightbox(index));
+  });
+
+  btnClose?.addEventListener('click', closeLightbox);
+  backdrop?.addEventListener('click', closeLightbox);
+  btnPrev?.addEventListener('click', prev);
+  btnNext?.addEventListener('click', next);
+
+  // Keyboard navigation
+  document.addEventListener('keydown', (e: KeyboardEvent) => {
+    if (!lightbox?.classList.contains('is-open')) return;
+    switch (e.key) {
+      case 'Escape':
+        closeLightbox();
+        break;
+      case 'ArrowLeft':
+        prev();
+        break;
+      case 'ArrowRight':
+        next();
+        break;
+    }
+  });
+</script>
