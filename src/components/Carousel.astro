@@ -1,0 +1,290 @@
+---
+interface Slide {
+  src: string;
+  alt: string;
+  caption?: string;
+  objectPosition?: string;
+}
+
+interface Props {
+  slides?: Slide[];
+  intervalMs?: number;
+}
+
+const {
+  intervalMs = 5000,
+  slides = [
+    {
+      src: '/carousel/slide-1.webp',
+      alt: 'Soup, salad, and fresh bread served beside the ornate cast-iron stove',
+      caption: 'By the Fireside',
+      objectPosition: 'center 60%',
+    },
+    {
+      src: '/carousel/slide-2.webp',
+      alt: 'Eggs Benedict with hollandaise and fresh arugula',
+      caption: 'Morning, Elevated',
+      objectPosition: 'center center',
+    },
+    {
+      src: '/carousel/slide-3.webp',
+      alt: 'Warm cheese fondue served with toasted crostini',
+      caption: 'Warm & Indulgent',
+      objectPosition: 'center 65%',
+    },
+    {
+      src: '/carousel/slide-4.webp',
+      alt: 'A spread of steak, shrimp salad, and penne from our kitchen',
+      caption: 'From Our Kitchen',
+      objectPosition: 'center center',
+    },
+    {
+      src: '/carousel/slide-5.webp',
+      alt: 'Freshly baked artisan bread loaves in a basket',
+      caption: 'Baked Each Morning',
+      objectPosition: 'center center',
+    },
+  ],
+} = Astro.props;
+---
+
+<section class="carousel" aria-label="Photo carousel" data-interval={intervalMs}>
+
+  <!-- Slides -->
+  <div class="carousel__track" id="carousel-track">
+    {slides.map((slide, i) => (
+      <figure class="carousel__slide" aria-hidden={i !== 0 ? 'true' : undefined}>
+        <img
+          src={slide.src}
+          alt={slide.alt}
+          class="carousel__img"
+          loading={i === 0 ? 'eager' : 'lazy'}
+          draggable="false"
+          style={slide.objectPosition ? `object-position: ${slide.objectPosition}` : undefined}
+        />
+        {slide.caption && (
+          <figcaption class="carousel__caption">
+            <span class="carousel__caption-inner">{slide.caption}</span>
+          </figcaption>
+        )}
+      </figure>
+    ))}
+  </div>
+
+  <!-- Controls -->
+  <button class="carousel__btn carousel__btn--prev" aria-label="Previous slide" id="carousel-prev">
+    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+      <polyline points="15 18 9 12 15 6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </button>
+  <button class="carousel__btn carousel__btn--next" aria-label="Next slide" id="carousel-next">
+    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+      <polyline points="9 18 15 12 9 6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </button>
+
+  <!-- Dot indicators -->
+  <div class="carousel__dots" role="tablist" aria-label="Slides">
+    {slides.map((_, i) => (
+      <button
+        class:list={['carousel__dot', { 'carousel__dot--active': i === 0 }]}
+        role="tab"
+        aria-label={`Slide ${i + 1}`}
+        aria-selected={i === 0 ? 'true' : 'false'}
+        data-index={i}
+      />
+    ))}
+  </div>
+
+</section>
+
+<style>
+  /* ── Carousel Shell ────────────────────────────────────── */
+
+  .carousel {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    background-color: var(--color-purple-dark);
+    user-select: none;
+  }
+
+  /* ── Track & Slides ───────────────────────────────────── */
+
+  .carousel__track {
+    display: flex;
+    transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: transform;
+  }
+
+  .carousel__slide {
+    flex: 0 0 100%;
+    position: relative;
+    margin: 0;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+  }
+
+  .carousel__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    filter: brightness(0.82);
+  }
+
+  /* ── Caption ──────────────────────────────────────────── */
+
+  .carousel__caption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: var(--space-xl) var(--space-xl) var(--space-lg);
+    background: linear-gradient(to top, rgba(18, 6, 2, 0.6) 0%, transparent 100%);
+    display: flex;
+    justify-content: center;
+  }
+
+  .carousel__caption-inner {
+    font-family: var(--font-display);
+    font-size: clamp(1.4rem, 3.5vw, 2.8rem);
+    font-weight: 300;
+    font-style: italic;
+    color: #F5F0E8;
+    letter-spacing: 0.04em;
+    text-align: center;
+  }
+
+  /* ── Prev / Next Buttons ──────────────────────────────── */
+
+  .carousel__btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;
+    border: 1px solid rgba(245, 240, 232, 0.35);
+    color: rgba(245, 240, 232, 0.8);
+    width: 2.8rem;
+    height: 2.8rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: border-color 0.2s ease, color 0.2s ease, background-color 0.2s ease;
+    z-index: 2;
+  }
+
+  .carousel__btn:hover {
+    border-color: var(--color-gold-light);
+    color: var(--color-gold-light);
+    background-color: rgba(18, 6, 2, 0.25);
+  }
+
+  .carousel__btn svg {
+    width: 1.1rem;
+    height: 1.1rem;
+    fill: none;
+    stroke: currentColor;
+  }
+
+  .carousel__btn--prev { left: var(--space-lg); }
+  .carousel__btn--next { right: var(--space-lg); }
+
+  /* ── Dot Indicators ───────────────────────────────────── */
+
+  .carousel__dots {
+    position: absolute;
+    bottom: var(--space-md);
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 0.5rem;
+    z-index: 2;
+  }
+
+  .carousel__dot {
+    width: 6px;
+    height: 6px;
+    background-color: rgba(245, 240, 232, 0.4);
+    border: none;
+    transform: rotate(45deg);
+    cursor: pointer;
+    padding: 0;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+  }
+
+  .carousel__dot--active {
+    background-color: var(--color-gold);
+    transform: rotate(45deg) scale(1.4);
+  }
+
+  /* ── Mobile ───────────────────────────────────────────── */
+
+  @media (max-width: 680px) {
+    .carousel__slide {
+      aspect-ratio: 1 / 1;
+    }
+
+    .carousel__btn--prev { left: var(--space-sm); }
+    .carousel__btn--next { right: var(--space-sm); }
+  }
+</style>
+
+<script>
+  const section  = document.querySelector<HTMLElement>('.carousel');
+  const track    = document.getElementById('carousel-track') as HTMLElement;
+  const prevBtn  = document.getElementById('carousel-prev') as HTMLButtonElement;
+  const nextBtn  = document.getElementById('carousel-next') as HTMLButtonElement;
+  const dots     = document.querySelectorAll<HTMLButtonElement>('.carousel__dot');
+  const slides   = document.querySelectorAll<HTMLElement>('.carousel__slide');
+
+  const total       = slides.length;
+  const intervalMs  = Number(section?.dataset.interval ?? 5000);
+  let current       = 0;
+  let timer: ReturnType<typeof setInterval>;
+
+  function goTo(index: number) {
+    slides[current].setAttribute('aria-hidden', 'true');
+    dots[current].classList.remove('carousel__dot--active');
+    dots[current].setAttribute('aria-selected', 'false');
+
+    current = (index + total) % total;
+
+    track.style.transform = `translateX(-${current * 100}%)`;
+    slides[current].removeAttribute('aria-hidden');
+    dots[current].classList.add('carousel__dot--active');
+    dots[current].setAttribute('aria-selected', 'true');
+  }
+
+  function startTimer() {
+    timer = setInterval(() => goTo(current + 1), intervalMs);
+  }
+
+  function resetTimer() {
+    clearInterval(timer);
+    startTimer();
+  }
+
+  prevBtn.addEventListener('click', () => { goTo(current - 1); resetTimer(); });
+  nextBtn.addEventListener('click', () => { goTo(current + 1); resetTimer(); });
+
+  dots.forEach(dot => {
+    dot.addEventListener('click', () => {
+      goTo(Number(dot.dataset.index));
+      resetTimer();
+    });
+  });
+
+  // Pause on hover
+  section?.addEventListener('mouseenter', () => clearInterval(timer));
+  section?.addEventListener('mouseleave', startTimer);
+
+  // Keyboard navigation
+  section?.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowLeft')  { goTo(current - 1); resetTimer(); }
+    if (e.key === 'ArrowRight') { goTo(current + 1); resetTimer(); }
+  });
+
+  startTimer();
+</script>
