@@ -11,35 +11,37 @@ interface Props {
   intervalMs?: number;
 }
 
+const base = import.meta.env.BASE_URL;
+
 const {
   intervalMs = 5000,
   slides = [
     {
-      src: '/carousel/slide-1.webp',
+      src: `${base}carousel/slide-1.webp`,
       alt: 'Soup, salad, and fresh bread served beside the ornate cast-iron stove',
       caption: 'By the Fireside',
       objectPosition: 'center 60%',
     },
     {
-      src: '/carousel/slide-2.webp',
+      src: `${base}carousel/slide-2.webp`,
       alt: 'Eggs Benedict with hollandaise and fresh arugula',
       caption: 'Morning, Elevated',
       objectPosition: 'center center',
     },
     {
-      src: '/carousel/slide-3.webp',
+      src: `${base}carousel/slide-3.webp`,
       alt: 'Warm cheese fondue served with toasted crostini',
       caption: 'Warm & Indulgent',
       objectPosition: 'center 65%',
     },
     {
-      src: '/carousel/slide-4.webp',
+      src: `${base}carousel/slide-4.webp`,
       alt: 'A spread of steak, shrimp salad, and penne from our kitchen',
       caption: 'From Our Kitchen',
       objectPosition: 'center center',
     },
     {
-      src: '/carousel/slide-5.webp',
+      src: `${base}carousel/slide-5.webp`,
       alt: 'Freshly baked artisan bread loaves in a basket',
       caption: 'Baked Each Morning',
       objectPosition: 'center center',

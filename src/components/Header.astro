@@ -27,9 +27,9 @@ const currentPath = Astro.url.pathname;
     </nav>
 
     <!-- Wordmark -->
-    <a href="/" class="wordmark" aria-label="The Belle Epoque Cafe — Home">
+    <a href={`${import.meta.env.BASE_URL}`} class="wordmark" aria-label="The Belle Epoque Cafe — Home">
       <img
-        src="/belle-epoque-logo-transparent.webp"
+        src={`${import.meta.env.BASE_URL}belle-epoque-logo-transparent.webp`}
         alt="The Belle Epoque Cafe"
         class="wordmark__logo"
         width="320"

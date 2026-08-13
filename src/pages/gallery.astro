@@ -8,21 +8,23 @@ import OrnamentalRule from '../components/OrnamentalRule.astro';
  *   src  — path relative to /public (e.g. '/gallery/eggs-benedict.webp')
  *   alt  — descriptive caption shown in the lightbox and used as aria-label
  */
+const base = import.meta.env.BASE_URL;
+
 const images: { src: string; alt: string }[] = [
-  { src: '/gallery/image_1.jpg',  alt: 'The Belle Epoque Cafe sign hanging above the downtown St. Joseph storefront' },
-  { src: '/gallery/image_2.jpg',  alt: 'A chilled glass of white wine held up by the front window of the cafe' },
-  { src: '/gallery/image_3.jpg',  alt: 'Seared fish over a black bean and corn succotash with a glass of white wine' },
-  { src: '/gallery/image_4.jpg',  alt: 'Chocolate torte with whipped cream and fresh raspberries alongside a glass of red wine' },
-  { src: '/gallery/image_5.jpg',  alt: 'Roasted Brussels sprouts with dipping sauce and a salmon rillettes plate with toast' },
-  { src: '/gallery/image_6.jpg',  alt: 'A spread of sliced steak, shrimp salad, garden salad, and a glass of red wine in afternoon light' },
-  { src: '/gallery/image_7.jpg',  alt: 'Seared shrimp and peas pasta in a black bowl with a Moscow mule cocktail' },
-  { src: '/gallery/image_8.jpg',  alt: 'Beer cheese soup with crispy bacon in a crock served with a brioche roll and a pint of beer' },
-  { src: '/gallery/image_9.jpg',  alt: 'Roasted Brussels sprouts and salmon rillettes with toast points, seen from above' },
-  { src: '/gallery/image_10.jpg', alt: 'An assortment of hand-crafted chocolate truffles on a tray at the cafe counter' },
-  { src: '/gallery/image_11.jpg', alt: 'Grilled pork tenderloin with roasted carrots and asparagus, with a berry reduction and a cocktail' },
-  { src: '/gallery/image_12.jpg', alt: 'Sliced flat iron steak with herb butter, broccoli, and a shrimp salad bowl with red wine' },
-  { src: '/gallery/image_13.jpg', alt: 'Two bowls of pasta: shrimp and peas, and penne with mushrooms and peas, topped with Parmesan' },
-  { src: '/gallery/image_14.jpg', alt: 'An Aperol spritz and a berry lemonade cocktail on the bar' },
+  { src: `${base}gallery/image_1.jpg`,  alt: 'The Belle Epoque Cafe sign hanging above the downtown St. Joseph storefront' },
+  { src: `${base}gallery/image_2.jpg`,  alt: 'A chilled glass of white wine held up by the front window of the cafe' },
+  { src: `${base}gallery/image_3.jpg`,  alt: 'Seared fish over a black bean and corn succotash with a glass of white wine' },
+  { src: `${base}gallery/image_4.jpg`,  alt: 'Chocolate torte with whipped cream and fresh raspberries alongside a glass of red wine' },
+  { src: `${base}gallery/image_5.jpg`,  alt: 'Roasted Brussels sprouts with dipping sauce and a salmon rillettes plate with toast' },
+  { src: `${base}gallery/image_6.jpg`,  alt: 'A spread of sliced steak, shrimp salad, garden salad, and a glass of red wine in afternoon light' },
+  { src: `${base}gallery/image_7.jpg`,  alt: 'Seared shrimp and peas pasta in a black bowl with a Moscow mule cocktail' },
+  { src: `${base}gallery/image_8.jpg`,  alt: 'Beer cheese soup with crispy bacon in a crock served with a brioche roll and a pint of beer' },
+  { src: `${base}gallery/image_9.jpg`,  alt: 'Roasted Brussels sprouts and salmon rillettes with toast points, seen from above' },
+  { src: `${base}gallery/image_10.jpg`, alt: 'An assortment of hand-crafted chocolate truffles on a tray at the cafe counter' },
+  { src: `${base}gallery/image_11.jpg`, alt: 'Grilled pork tenderloin with roasted carrots and asparagus, with a berry reduction and a cocktail' },
+  { src: `${base}gallery/image_12.jpg`, alt: 'Sliced flat iron steak with herb butter, broccoli, and a shrimp salad bowl with red wine' },
+  { src: `${base}gallery/image_13.jpg`, alt: 'Two bowls of pasta: shrimp and peas, and penne with mushrooms and peas, topped with Parmesan' },
+  { src: `${base}gallery/image_14.jpg`, alt: 'An Aperol spritz and a berry lemonade cocktail on the bar' },
 ];
 ---
 
