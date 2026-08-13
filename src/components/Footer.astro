@@ -1,0 +1,100 @@
+---
+import FacebookButton from './FacebookButton.astro';
+
+const currentYear = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+
+  <!-- Ornamental rule (mirrors header) -->
+  <div class="footer-rule" aria-hidden="true">
+    <span class="footer-rule__line"></span>
+    <span class="footer-rule__diamond"></span>
+    <span class="footer-rule__line"></span>
+  </div>
+
+  <div class="footer-inner">
+
+    <div class="footer-brand">
+      <img
+        src="/belle-epoque-logo-transparent.webp"
+        alt="The Belle Epoque Cafe"
+        class="footer-logo"
+        width="200"
+        height="75"
+      />
+    </div>
+
+    <div class="footer-social">
+      <FacebookButton />
+    </div>
+
+    <p class="footer-copy">
+      &copy; {currentYear} The Belle Epoque Cafe &mdash; Downtown St. Joseph
+    </p>
+
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    background-color: var(--color-bg);
+    padding: 0 var(--space-xl) var(--space-lg);
+    margin-top: var(--space-2xl);
+  }
+
+  /* ── Ornamental Rule (mirrors header) ─────────────────── */
+
+  .footer-rule {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    max-width: 1200px;
+    margin: 0 auto var(--space-lg);
+  }
+
+  .footer-rule__line {
+    flex: 1;
+    height: 1px;
+    background-color: var(--color-border);
+  }
+
+  .footer-rule__diamond {
+    width: 6px;
+    height: 6px;
+    background-color: var(--color-gold);
+    transform: rotate(45deg);
+    flex-shrink: 0;
+  }
+
+  /* ── Footer Inner ─────────────────────────────────────── */
+
+  .footer-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-md);
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  /* ── Logo ─────────────────────────────────────────────── */
+
+  .footer-logo {
+    width: clamp(140px, 15vw, 200px);
+    height: auto;
+    opacity: 0.75;
+  }
+
+  /* ── Copyright ────────────────────────────────────────── */
+
+  .footer-copy {
+    font-family: var(--font-label);
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-border);
+    max-width: none;
+  }
+</style>
